@@ -1,4 +1,4 @@
-FROM tomcat:7-jre8-alpine
+FROM tomcat:8-jre7-alpine
 
 # Configure Tomcat
 ENV CATALINA_OPTS="-server -Xms2048m -Xmx4g -XX:MaxPermSize=512m"
