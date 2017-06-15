@@ -1,31 +1,30 @@
 FROM tomcat:8-jre8-alpine
 
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VCS_URL
+
+LABEL org.label-schema.vendor="Nix Team <unix@lists.wm.edu>" \
+      org.label-schema.name="XE Tomcat JRE8" \
+      org.label-schema.description="Base version of tomcat for Banner XE applications" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url=$VCS_URL \
+      org.label-schema.schema-version="1.0"
+
 # Configure Tomcat
-ENV CATALINA_OPTS="-server -Xms2048m -Xmx4g -XX:MaxPermSize=512m"
-COPY server.xml context.xml /usr/local/tomcat/conf/
+ENV CATALINA_OPTS="-server -Xms2g -Xmx4g -XX:MaxPermSize=512m" \
+    BANNER_INSTANCE="DEVL"
+
+COPY config/* /usr/local/tomcat/conf/
+
 ADD https://developer.byu.edu/maven2/content/groups/thirdparty/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0.jar /usr/local/tomcat/lib/
 ADD https://developer.byu.edu/maven2/content/groups/thirdparty/com/oracle/xdb6/11.2.0.4/xdb6-11.2.0.4.jar /usr/local/tomcat/lib/
-RUN rm -Rf /usr/local/tomcat/webapps/*
+
+RUN rm -Rf /usr/local/tomcat/webapps/* \
+    && apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/America/New_York /etc/localtime
+
 COPY run.sh /usr/local/tomcat/bin/
-
-ENV TIMEZONE=America/New_York \
-    BANPROXY_INITIALSIZE=5 \
-    BANPROXY_MAXACTIVE=100 \
-    BANPROXY_MAXIDLE=-1 \
-    BANPROXY_MAXWAIT=30000 \
-    BANSSUSER_INITIALSIZE=5 \
-    BANSSUSER_MAXACTIVE=100 \
-    BANSSUSER_MAXIDLE=-1 \
-    BANSSUSER_MAXWAIT=30000
-
-ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-  -Dbanproxy.initialsize=\$BANPROXY_INITIALSIZE \
-  -Dbanproxy.maxactive=\$BANPROXY_MAXACTIVE \
-  -Dbanproxy.maxidle=\$BANPROXY_MAXIDLE \
-  -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT \
-  -Dbanssuser.initialsize=\$BANSSUSER_INITIALSIZE \
-  -Dbanssuser.maxactive=\$BANSSUSER_MAXACTIVE \
-  -Dbanssuser.maxidle=\$BANSSUSER_MAXIDLE \
-  -Dbanssuser.maxwait=\$BANSSUSER_MAXACTIVE
 
 CMD ["/usr/local/tomcat/bin/run.sh"]

@@ -39,4 +39,6 @@
                   name="jdbc/bannerSsbDataSource"
                   type="javax.sql.DataSource"/>
 
+    <!-- Set to 100M to avoid org.apache.catalina.webresources.Cache.getResource Unable to add the resource -->
+    <Resources cachingAllowed="true" cacheMaxSize="102400" />
 </Context>
