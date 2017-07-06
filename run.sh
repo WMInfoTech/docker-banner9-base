@@ -61,9 +61,9 @@ if [ -d /run/secrets ]; then
 fi
 
 setPropFromEnv bannerdb.url "$BANNERDB_URL"
-setPropFromEnv bannerdb.user "$BANNERDB_USER"
-setPropFromEnv bannerdb.password "$BANNERDB_PASSWORD"
-setPropFromEnv bannerssbdb.user "$BANNERSSBDB_USER"
-setPropFromEnv bannerssbdb.password "$BANNERSSBDB_PASSWORD"
+setPropFromEnv banproxy.username "$BANNERDB_USER"
+setPropFromEnv banproxy.password "$BANNERDB_PASSWORD"
+setPropFromEnv banssuser.username "$BANNERSSDB_USER"
+setPropFromEnv banssuser.password "$BANNERSSDB_PASSWORD"
 
 exec catalina.sh run
