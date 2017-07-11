@@ -16,7 +16,8 @@ LABEL org.label-schema.vendor="Nix Team <unix@lists.wm.edu>" \
 ENV CATALINA_OPTS="-server -Xms2g -Xmx4g -XX:MaxPermSize=512m" \
     BANNER_INSTANCE="DEVL"
 
-COPY config/* /usr/local/tomcat/conf/
+COPY tomcat_config/* /usr/local/tomcat/conf/
+COPY banner_config/* /banner_config/
 
 ADD https://developer.byu.edu/maven2/content/groups/thirdparty/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0.jar /usr/local/tomcat/lib/
 ADD https://developer.byu.edu/maven2/content/groups/thirdparty/com/oracle/xdb6/11.2.0.4/xdb6-11.2.0.4.jar /usr/local/tomcat/lib/
