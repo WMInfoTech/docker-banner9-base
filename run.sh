@@ -65,6 +65,5 @@ setPropFromEnv banproxy.username "$BANNERDB_USER"
 setPropFromEnv banproxy.password "$BANNERDB_PASSWORD"
 setPropFromEnv banssuser.username "$BANNERSSDB_USER"
 setPropFromEnv banssuser.password "$BANNERSSDB_PASSWORD"
-setPropFromEnv BANNER_APP_CONFIG "/usr/local/tomcat/conf/banner_configuration.groovy"
 
 exec catalina.sh run
