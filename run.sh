@@ -40,7 +40,7 @@ setPropsFromFile() {
   done
 }
 
-if [ -z "$CONFIG_FILE" ] && [ -f "$CONFIG_FILE" ]; then
+if [ -f "$CONFIG_FILE" ]; then
     setPropsFromFile "$CONFIG_FILE"
 fi
 
