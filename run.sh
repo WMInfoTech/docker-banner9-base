@@ -53,11 +53,21 @@ if [ -d /run/secrets ]; then
   done
 fi
 
-setProperty bannerdb.url "$BANNERDB_URL"
-setProperty banproxy.username "$BANNERDB_USER"
-setProperty banproxy.password "$BANNERDB_PASSWORD"
-setProperty banssuser.username "$BANNERSSDB_USER"
-setProperty banssuser.password "$BANNERSSDB_PASSWORD"
-setProperty cas.serverName "$APP_URL"
+setPropFromEnv() {
+  prop=$1
+  val=$2
+  # If no value was given, abort
+  [ -z "$val" ] && return
+  if [ $(grep -c $prop $PROPFILE) -eq 0 ]; then
+    setProperty $prop $val
+  fi
+}
+
+setPropFromEnv bannerdb.url "$BANNERDB_URL"
+setPropFromEnv banproxy.username "$BANNERDB_USER"
+setPropFromEnv banproxy.password "$BANNERDB_PASSWORD"
+setPropFromEnv banssuser.username "$BANNERSSDB_USER"
+setPropFromEnv banssuser.password "$BANNERSSDB_PASSWORD"
+setPropFromEnv cas.serverName "$APP_URL"
 
 exec catalina.sh run
