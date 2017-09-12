@@ -93,6 +93,9 @@
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
     <Connector port="8080" protocol="HTTP/1.1"
+               SSLEnabled="false"
+               scheme="https" secure="true"
+               proxyPort="443"
                connectionTimeout="20000"
                redirectPort="8443" />
     <!-- A "Connector" using the shared thread pool-->
