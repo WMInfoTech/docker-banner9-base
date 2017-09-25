@@ -1,5 +1,6 @@
 #!/bin/sh
 # shellcheck disable=SC2013,SC2046
+# Thanks to Virginia Tech for some of the setup in this file
 
 PROPFILE="/usr/local/tomcat/conf/catalina.properties"
 if [ ! -f "$PROPFILE" ]; then
