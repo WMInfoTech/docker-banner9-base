@@ -11,6 +11,12 @@ war files built by ESM without any modification to the source code.
 Resulting images should be portable across different banner tiers (production,
 test, development, etc.)
 
+## Building Images
+
+When building images, be sure to add a line like
+`RUN /usr/local/bin/extract-war.sh`
+after copying WAR files into your image.
+
 ## Docker Swarm Setup
 
 ### Networking
