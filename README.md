@@ -5,7 +5,8 @@ This is used to build a base image for running Banner XE self-service, but isn't
 especially useful by itself.
 
 The resulting image is designed to work as a base image for Banner 9 war files
-running in a Docker Swarm cluster.
+running in a Docker Swarm cluster. The setup here is designed to be used with
+war files built by ESM without any modification to the source code.
 
 Resulting images should be portable across different banner tiers (production,
 test, development, etc.)
