@@ -21,12 +21,17 @@ COPY banner_config/* /banner_config/
 ADD https://developer.byu.edu/maven2/content/groups/thirdparty/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0.jar /usr/local/tomcat/lib/
 ADD https://developer.byu.edu/maven2/content/groups/thirdparty/com/oracle/xdb6/11.2.0.4/xdb6-11.2.0.4.jar /usr/local/tomcat/lib/
 
+COPY run.sh /usr/local/tomcat/bin/
+COPY extract-war.sh /usr/local/bin/extract-war.sh
+
 RUN apk add --no-cache xmlstarlet \
     && rm -Rf /usr/local/tomcat/webapps/* \
     && apk add --no-cache tzdata \
-    && cp /usr/share/zoneinfo/America/New_York /etc/localtime
+    && cp /usr/share/zoneinfo/America/New_York /etc/localtime \
+    && addgroup -g 91 -S tomcat \
+    && adduser -S -G tomcat -u 91 -h /usr/local/tomcat tomcat \
+    && chown -R tomcat:tomcat /usr/local/tomcat /banner_config/
 
-COPY run.sh /usr/local/tomcat/bin/
-COPY extract-war.sh /usr/local/bin/extract-war.sh
+USER tomcat
 
 CMD ["/usr/local/tomcat/bin/run.sh"]
